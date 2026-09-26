@@ -1,0 +1,38 @@
+### Variables
+@host = http://localhost:8080
+
+### 1. Listar todos los estudiantes (GET)
+GET {{host}}/api/estudiantes
+
+### 2. Crear un estudiante (POST)
+POST {{host}}/api/estudiantes
+Content-Type: application/json
+
+{
+  "nombre": "Mario",
+  "apellido": "Rojas",
+  "email": "mario.rojas@correo.com",
+  "programa": "Ingeniería de Sistemas",
+  "semestre": 4
+}
+
+### 3. Obtener un estudiante por id (GET) - reemplaza {id} por el id devuelto en el paso 2
+GET {{host}}/api/estudiantes/1
+
+### 4. Actualizar un estudiante (PUT)
+PUT {{host}}/api/estudiantes/1
+Content-Type: application/json
+
+{
+  "nombre": "Mario",
+  "apellido": "Rojas Londoño",
+  "email": "mario.rojas@correo.com",
+  "programa": "Ingeniería de Sistemas",
+  "semestre": 5
+}
+
+### 5. Borrar un estudiante (DELETE)
+DELETE {{host}}/api/estudiantes/1
+
+### 6. Confirmar que ya no existe (debe responder 404)
+GET {{host}}/api/estudiantes/1
