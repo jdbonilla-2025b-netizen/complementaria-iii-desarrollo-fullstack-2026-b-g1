@@ -1,35 +1,54 @@
-# Actividad Semana 7 - Entity y Repository (JPA)
+# 07 — API
 
-## Caso: UrbanStyle E-Commerce
+## Estado de esta sección: No aplica
 
-Este ejercicio modela el catálogo de productos de **UrbanStyle**, una tienda
-de ropa urbana (camisetas, zapatos, vestidos y accesorios). Se define la
-entity `Producto`, que representaría la tabla `productos` en la base de
-datos, y su respectivo repository para acceder a esos datos.
+UrbanStyle E-Commerce es una aplicación **puramente frontend**: no tiene
+servidor propio, no expone ninguna ruta HTTP, y no implementa autenticación
+ni persistencia propia. Todo el código corre en el navegador del cliente
+(React vía Babel standalone, cargado con `<script type="text/babel">` desde
+`index.html`), sin ningún backend detrás.
 
-## Archivos
+Esta sección del framework (`07-api`) gobierna **la única API HTTP que la
+aplicación expone a sus clientes**: nombres de recursos, versionado, códigos
+de estado, forma de los errores y paginación. Como esta aplicación no expone
+ninguna API — no hay clientes de la aplicación distintos del propio
+navegador, ni endpoints propios que versionar o proteger — no hay nada que
+gobernar aquí.
 
-- **Producto.java**: entity que mapea la tabla `productos`, con los
-  atributos id, titulo, categoria, marca, precio, imagenUrl y stock.
-- **ProductoRepository.java**: interfaz que extiende `JpaRepository` y
-  agrega la consulta por método `findByCategoria`, para traer solo los
-  productos de una categoría específica (por ejemplo, "zapatos").
+## Lo que sí existe: una API externa consumida
 
-## Operaciones CRUD
+La aplicación **consume** una API pública de terceros, DummyJSON
+(`GET https://dummyjson.com/products?limit=0`), a través de `fetch` en el
+componente `App` (función `cargarCatalogo`, en `app.jsx`). Esa es una
+dependencia externa, no un contrato que la aplicación defina o controle, por
+lo que:
 
-- **Create**: se usaría cuando el administrador de la tienda agrega un
-  producto nuevo al catálogo (por ejemplo, una nueva camiseta de una
-  colección). Se llamaría al método heredado `save(producto)`.
+- No se documenta con una plantilla OpenAPI propia (`_template-api.yaml`),
+  porque esa plantilla describe endpoints que la aplicación expone, y aquí
+  no hay ninguno.
+- Su documentación (forma de la respuesta, mapeo de categorías a las
+  secciones de la tienda, conversión de precio USD → COP, y el manejo de los
+  estados de carga y error) vive en
+  [`../06-data/README.md`](../06-data/README.md), que es la sección
+  correcta para describir de dónde vienen los datos y cómo se transforman.
 
-- **Read**: se usa para mostrar el catálogo en el frontend. `findAll()`
-  trae todos los productos (para la vista de inicio), y
-  `findByCategoria("zapatos")` trae solo los de una categoría, que es
-  justo lo que necesita el filtro por categorías del sitio.
+## Por qué no se fuerza la plantilla
 
-- **Update**: se usaría cuando cambia el precio de un producto (por
-  ejemplo, en una promoción) o cuando baja el stock después de una
-  venta. Se trae el producto con `findById(id)`, se modifica con los
-  setters (`setPrecio`, `setStock`) y se guarda de nuevo con `save()`.
+Rellenar `_template-api.yaml` con recursos inventados (`Product` con `sku`,
+`categoryId` como UUID, autenticación `bearerAuth`) documentaría una API que
+el código no implementa. Eso contradice el propio código fuente del
+proyecto y no se sostiene frente a una revisión que compare esta
+documentación con la aplicación real.
 
-- **Delete**: se usaría cuando un producto se descontinúa y ya no debe
-  aparecer en la tienda. Se llamaría a `deleteById(id)`.
+## Si el proyecto evoluciona
+
+Si en una fase futura este proyecto agrega un backend propio (por ejemplo,
+para persistir el carrito o gestionar pedidos), esta sección deja de ser "No
+aplica" y debe llenarse siguiendo
+[`rest-conventions.md`](./rest-conventions.md) y copiando
+`contracts/openapi/_template-api.yaml` por cada grupo de recursos que ese
+backend exponga.
+
+---
+
+**Related:** [`../06-data/README.md`](../06-data/README.md) · [`../09-modules/README.md`](../09-modules/README.md)
