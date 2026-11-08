@@ -463,30 +463,20 @@ function App() {
   const [tipoActivo, setTipoActivo] = useState(null);
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
-  // ---- Catálogo consumido desde una API pública (DummyJSON) ----
+  // ---- Catálogo consumido desde nuestra propia API (Node + Express) ----
   const [catalogo, setCatalogo] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
-  // Traduce las categorías reales de la API a nuestras 4 secciones de tienda
-  const MAPA_CATEGORIAS = {
-    'mens-shirts': 'camisetas',
-    'tops': 'camisetas',
-    'mens-shoes': 'zapatos',
-    'womens-shoes': 'zapatos',
-    'womens-dresses': 'vestidos',
-    'sunglasses': 'accesorios',
-    'womens-bags': 'accesorios',
-    'womens-jewellery': 'accesorios',
-    'mens-watches': 'accesorios',
-    'womens-watches': 'accesorios',
-  };
+  // URL base de nuestra propia API (versión 1, solo lectura)
+  const API_URL = 'http://localhost:3000/api/v1';
 
   function cargarCatalogo() {
     setCargando(true);
     setError(null);
 
-    fetch('https://dummyjson.com/products?limit=0')
+    // limit=100 es el máximo que permite la API: trae el catálogo completo en una sola página
+    fetch(API_URL + '/products?limit=100')
       .then((respuesta) => {
         if (!respuesta.ok) {
           throw new Error('El servidor respondió con un error (' + respuesta.status + ')');
@@ -494,22 +484,12 @@ function App() {
         return respuesta.json();
       })
       .then((datos) => {
-        const productosMapeados = datos.products
-          .filter((p) => MAPA_CATEGORIAS[p.category])
-          .map((p) => ({
-            id: p.id,
-            title: p.title,
-            // La API da precios en USD; convertimos a COP aprox. para mantener el formato del sitio
-            price: Math.round(p.price * 4000),
-            image: p.thumbnail,
-            category: MAPA_CATEGORIAS[p.category],
-            tipo: p.brand || undefined,
-          }));
-        setCatalogo(productosMapeados);
+        // La API ya devuelve precio en COP, categorías de la tienda e imagen completa
+        setCatalogo(datos.data);
         setCargando(false);
       })
       .catch((err) => {
-        setError(err.message || 'No pudimos cargar el catálogo. Intenta de nuevo.');
+        setError('No pudimos conectar con la API. ¿Está encendida (npm start en /api)? ' + (err.message || ''));
         setCargando(false);
       });
   }

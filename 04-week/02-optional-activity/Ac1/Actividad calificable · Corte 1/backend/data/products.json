@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Camisa Urbana",
+    "price": 119900,
+    "image": "/images/camisa.png",
+    "category": "camisas",
+    "tipo": "Casual",
+    "description": "Camisa de corte urbano para el día a día, cómoda y fácil de combinar."
+  },
+  {
+    "id": 2,
+    "title": "Pantalón Urbano",
+    "price": 149900,
+    "image": "/images/pantalon.png",
+    "category": "pantalones",
+    "tipo": "Casual",
+    "description": "Pantalón de ajuste cómodo con bolsillos funcionales y tela resistente."
+  },
+  {
+    "id": 3,
+    "title": "Saco Urbano",
+    "price": 189900,
+    "image": "/images/saco.jpg",
+    "category": "sacos",
+    "tipo": "Casual",
+    "description": "Saco abrigado con estilo street, ideal para las noches frescas."
+  },
+  {
+    "id": 4,
+    "title": "Short Urbano",
+    "price": 89900,
+    "image": "/images/short.jpg",
+    "category": "shorts",
+    "tipo": "Casual",
+    "description": "Short ligero para clima cálido, con cintura ajustable."
+  },
+  {
+    "id": 5,
+    "title": "Zapatos Urbanos",
+    "price": 289900,
+    "image": "/images/zapatos.jpg",
+    "category": "zapatos",
+    "tipo": "Sneakers",
+    "description": "Zapatos urbanos con suela cómoda para uso diario."
+  }
+]

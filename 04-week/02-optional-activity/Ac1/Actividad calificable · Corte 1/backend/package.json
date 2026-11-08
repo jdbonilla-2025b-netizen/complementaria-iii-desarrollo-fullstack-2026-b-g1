@@ -1,0 +1,14 @@
+{
+  "name": "urbanstyle-backend",
+  "version": "1.0.0",
+  "description": "API REST (solo lectura) para la tienda UrbanStyle. Sirve productos desde un archivo JSON y las imágenes de frontend/img.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
