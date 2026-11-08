@@ -1,0 +1,16 @@
+{
+  "name": "gamezone-reservas",
+  "version": "1.0.0",
+  "description": "Reservas de turnos y consolas de un local gamer (JWT + CORS + Docker)",
+  "scripts": {
+    "start": "node start.js",
+    "test": "node --test backend/*.test.js frontend/*.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "engines": { "node": ">=20" },
+  "license": "MIT"
+}

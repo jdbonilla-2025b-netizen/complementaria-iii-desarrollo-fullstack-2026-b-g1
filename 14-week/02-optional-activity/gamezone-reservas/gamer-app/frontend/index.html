@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GameZone · Turnos y consolas</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #12121a; color: #eee; max-width: 560px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { color: #7c5cff; }
+    input, button { padding: .6rem; margin: .25rem 0; width: 100%; box-sizing: border-box; border-radius: 6px; border: 0; }
+    button { background: #7c5cff; color: #fff; cursor: pointer; }
+    .card { background: #1e1e2c; border-radius: 8px; padding: 1rem; margin: .75rem 0; }
+    .slot { display: inline-block; padding: .25rem .6rem; border-radius: 12px; margin: .2rem; font-size: .9rem; }
+    .free { background: #1f8a4c; }
+    .busy { background: #8a2b2b; text-decoration: line-through; }
+    .error { color: #ff6b6b; }
+  </style>
+</head>
+<body>
+  <h1>🎮 GameZone</h1>
+
+  <section id="login-view">
+    <h2>Iniciar sesión</h2>
+    <input id="username" placeholder="Usuario" value="gamer">
+    <input id="password" type="password" placeholder="Contraseña" value="1234">
+    <button id="login-btn">Entrar</button>
+  </section>
+
+  <section id="data-view" hidden>
+    <h2>Consolas y turnos de hoy</h2>
+    <div id="list"></div>
+    <button id="logout-btn">Salir</button>
+  </section>
+
+  <p id="msg" class="error"></p>
+
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
