@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-urbanstyle}
+      POSTGRES_USER: ${DB_USER:-urban}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-urban123}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-urban} -d ${DB_NAME:-urbanstyle}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${DB_NAME:-urbanstyle}
+      DB_USER: ${DB_USER:-urban}
+      DB_PASSWORD: ${DB_PASSWORD:-urban123}
+      JWT_SECRET: ${JWT_SECRET:-cambia-este-secreto-de-al-menos-32-bytes-0123456789}
+      CORS_ORIGINS: http://localhost:3000
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:8080
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  pgdata:

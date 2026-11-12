@@ -1,0 +1,8 @@
+body { font-family: system-ui, sans-serif; background: #f4f4f5; margin: 0; }
+main { max-width: 640px; margin: 2rem auto; padding: 1.5rem; background: #fff; border-radius: 8px; }
+form { display: grid; gap: .75rem; }
+input, button { padding: .6rem; font-size: 1rem; }
+button { cursor: pointer; }
+.error { color: #b91c1c; }
+ul { padding-left: 1.2rem; }
+header { display: flex; justify-content: space-between; align-items: center; }
